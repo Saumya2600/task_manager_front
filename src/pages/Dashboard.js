@@ -29,7 +29,7 @@ const Dashboard = ({ onLogout }) => {
         throw new Error('No token found. Please log in.');
       }
 
-      const res = await axios.get('http://localhost:5000/api/auth/me', {
+      const res = await axios.get('https://task-manager-backend-hazel-three.vercel.app/api/auth/me', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsername(res.data.username);
@@ -46,7 +46,7 @@ const Dashboard = ({ onLogout }) => {
         throw new Error('No token found. Please log in.');
       }
 
-      const res = await axios.get('http://localhost:5000/api/tasks', {
+      const res = await axios.get('https://task-manager-backend-hazel-three.vercel.app/api/tasks', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(res.data);
@@ -88,7 +88,7 @@ const Dashboard = ({ onLogout }) => {
       }
 
       await axios.put(
-        `http://localhost:5000/api/tasks/${editingTask._id}`,
+        `https://task-manager-backend-hazel-three.vercel.app/api/tasks/${editingTask._id}`,
         { title: editTitle, description: editDescription },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -116,7 +116,7 @@ const Dashboard = ({ onLogout }) => {
         throw new Error('No token found. Please log in.');
       }
 
-      await axios.delete(`http://localhost:5000/api/tasks/${taskId}`, {
+      await axios.delete(`https://task-manager-backend-hazel-three.vercel.app/api/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -136,7 +136,7 @@ const Dashboard = ({ onLogout }) => {
       }
 
       const res = await axios.post(
-        'http://localhost:5000/api/tasks',
+        'https://task-manager-backend-hazel-three.vercel.app/api/tasks',
         { title: newTaskTitle, description: newTaskDescription },
         { headers: { Authorization: `Bearer ${token}` } }
       );
