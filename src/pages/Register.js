@@ -11,7 +11,7 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', { username, password });
+      const res = await axios.post('https://task-manager-backend-hazel-three.vercel.app/api/auth/register', { username, password });
       console.log('Registration response:', res.data); // Debugging: Log the response
       alert('Registration successful! Please log in.'); // Notify the user
       navigate('/login'); // Redirect to the login page
