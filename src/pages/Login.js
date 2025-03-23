@@ -11,7 +11,7 @@ const Login = ({ setIsAuthenticated }) => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+      const res = await axios.post('https://task-manager-backend-hazel-three.vercel.app/api/auth/login', { username, password });
       console.log('Login response:', res.data); // Debugging: Log the response
       localStorage.setItem('token', res.data.token); // Save token to localStorage
       setIsAuthenticated(true); // Update authentication state
