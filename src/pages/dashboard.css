@@ -79,15 +79,18 @@ body {
   color: #fff;
 }
 
-/* Task list - Grid layout */
+/* Task list - Grid layout (UPDATED FOR SIDE-BY-SIDE TASKS) */
 .task-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 1rem;
+  width: 100%;
+  max-width: 1200px; /* Prevents grid from stretching too wide */
+  margin: 0 auto; /* Centers the grid */
 }
 
-/* Task card */
+/* Task card (UPDATED FOR BETTER SPACING) */
 .task-card {
   background: linear-gradient(to right, #1e3c72, #2a5298);
   padding: 1.5rem;
@@ -99,6 +102,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   border-left: 4px solid #4caf50;
+  width: 100%; /* Ensures card fills grid cell */
 }
 
 .task-card:hover {
@@ -272,7 +276,7 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .task-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Stack tasks vertically on small screens */
   }
   
   .dashboard-title {
