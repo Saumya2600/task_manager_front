@@ -60,7 +60,7 @@ const Dashboard = ({ onLogout }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    onLogout(); // Call the logout handler from App.js
+    onLogout();
     navigate('/login');
   };
 
@@ -161,7 +161,6 @@ const Dashboard = ({ onLogout }) => {
 
   return (
     <div className="dashboard-container">
-      {/* Top Bar */}
       <div className="top-bar">
         <div className="greeting">Hello {username}</div>
         <button className="logout-button" onClick={handleLogout}>
@@ -170,8 +169,9 @@ const Dashboard = ({ onLogout }) => {
       </div>
 
       <h1 className="dashboard-title">Dashboard</h1>
+      
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="tasks">
+        <Droppable droppableId="tasks" direction="horizontal">
           {(provided) => (
             <div
               {...provided.droppableProps}
@@ -187,19 +187,15 @@ const Dashboard = ({ onLogout }) => {
                       {...provided.dragHandleProps}
                       className="task-card"
                     >
-                      <h3>{task.title}</h3>
-                      <p>{task.description}</p>
-                      <div className="buttons">
-                        <button
-                          className="edit"
-                          onClick={() => handleEdit(task)}
-                        >
+                      <div className="task-content">
+                        <h3 className="task-title">{task.title}</h3>
+                        <p className="task-description">{task.description}</p>
+                      </div>
+                      <div className="task-actions">
+                        <button className="edit" onClick={() => handleEdit(task)}>
                           Edit
                         </button>
-                        <button
-                          className="delete"
-                          onClick={() => handleDelete(task._id)}
-                        >
+                        <button className="delete" onClick={() => handleDelete(task._id)}>
                           Delete
                         </button>
                       </div>
@@ -213,7 +209,6 @@ const Dashboard = ({ onLogout }) => {
         </Droppable>
       </DragDropContext>
 
-      {/* Add Task Button */}
       <button
         className="add-task-button"
         onClick={() => setIsAddTaskModalOpen(true)}
@@ -221,7 +216,6 @@ const Dashboard = ({ onLogout }) => {
         +
       </button>
 
-      {/* Edit Modal */}
       {editingTask && (
         <div className="modal-overlay">
           <div className="modal">
@@ -245,7 +239,6 @@ const Dashboard = ({ onLogout }) => {
         </div>
       )}
 
-      {/* Add Task Modal */}
       {isAddTaskModalOpen && (
         <div className="modal-overlay">
           <div className="modal">

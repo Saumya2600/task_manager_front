@@ -11,24 +11,17 @@ body {
   min-height: 100vh;
 }
 
-/* Background animation */
 @keyframes gradientBackground {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Dashboard container */
 .dashboard-container {
   width: 100%;
   padding: 20px;
-  margin-top: 80px; /* Space for fixed header */
+  margin-top: 80px;
   box-sizing: border-box;
 }
 
@@ -46,13 +39,11 @@ body {
   left: 0;
   width: 100%;
   z-index: 1000;
-  box-sizing: border-box;
 }
 
 .greeting {
   font-size: 1.25rem;
   font-weight: bold;
-  color: #fff;
 }
 
 .logout-button {
@@ -61,7 +52,6 @@ body {
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
-  font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s ease;
 }
@@ -70,39 +60,35 @@ body {
   background: #e53935;
 }
 
-/* Dashboard title */
 .dashboard-title {
   font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 2rem;
-  color: #fff;
 }
 
-/* Task list - Grid layout (UPDATED FOR SIDE-BY-SIDE TASKS) */
+/* Task List */
 .task-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 1rem;
   width: 100%;
-  max-width: 1200px; /* Prevents grid from stretching too wide */
-  margin: 0 auto; /* Centers the grid */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Task card (UPDATED FOR BETTER SPACING) */
+/* Task Card */
 .task-card {
-  background: linear-gradient(to right, #1e3c72, #2a5298);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
-  min-height: 180px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  min-height: 180px;
   border-left: 4px solid #4caf50;
-  width: 100%; /* Ensures card fills grid cell */
 }
 
 .task-card:hover {
@@ -110,51 +96,50 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-.task-card h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #fff;
-}
-
-.task-card p {
-  font-size: 1rem;
-  color: #e0e0e0;
-  margin-bottom: 1rem;
+.task-content {
   flex-grow: 1;
 }
 
-/* Buttons */
-.task-card .buttons {
+.task-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+}
+
+.task-description {
+  margin: 0 0 1rem 0;
+  color: #e0e0e0;
+}
+
+.task-actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   justify-content: flex-end;
 }
 
-.task-card .buttons button {
+.task-actions button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
-  font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
-.task-card .buttons button.edit {
+.task-actions .edit {
   background: #4caf50;
   color: white;
 }
 
-.task-card .buttons button.edit:hover {
+.task-actions .edit:hover {
   background: #45a049;
 }
 
-.task-card .buttons button.delete {
+.task-actions .delete {
   background: #f44336;
   color: white;
 }
 
-.task-card .buttons button.delete:hover {
+.task-actions .delete:hover {
   background: #e53935;
 }
 
@@ -211,7 +196,6 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #fff;
 }
 
 .modal input,
@@ -219,12 +203,11 @@ body {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   font-size: 1rem;
-  outline: none;
-  background: #2a5298;
-  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .modal textarea {
@@ -242,9 +225,7 @@ body {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 .modal-buttons button:first-child {
@@ -269,14 +250,13 @@ body {
 .loading, .error {
   text-align: center;
   font-size: 1.5rem;
-  color: #fff;
   margin-top: 2rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .task-list {
-    grid-template-columns: 1fr; /* Stack tasks vertically on small screens */
+    grid-template-columns: 1fr;
   }
   
   .dashboard-title {
@@ -295,7 +275,6 @@ body {
   }
   
   .task-card {
-    min-height: 160px;
     padding: 1.2rem;
   }
 }
