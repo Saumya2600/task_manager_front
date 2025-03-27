@@ -55,6 +55,7 @@ body {
   border-radius: 5px;
   padding: 0.5rem 1rem;
   cursor: pointer;
+  margin-right: 55px;
   transition: background 0.3s ease;
 }
 
