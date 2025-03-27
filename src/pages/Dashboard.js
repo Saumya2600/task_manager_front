@@ -25,9 +25,7 @@ const Dashboard = ({ onLogout }) => {
   const fetchUserDetails = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found. Please log in.');
-      }
+      if (!token) throw new Error('No token found. Please log in.');
 
       const res = await axios.get('https://task-manager-backend-hazel-three.vercel.app/api/auth/me', {
         headers: { Authorization: `Bearer ${token}` },
@@ -42,9 +40,7 @@ const Dashboard = ({ onLogout }) => {
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found. Please log in.');
-      }
+      if (!token) throw new Error('No token found. Please log in.');
 
       const res = await axios.get('https://task-manager-backend-hazel-three.vercel.app/api/tasks', {
         headers: { Authorization: `Bearer ${token}` },
@@ -66,11 +62,9 @@ const Dashboard = ({ onLogout }) => {
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
-
     const items = Array.from(tasks);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
     setTasks(items);
   };
 
@@ -83,9 +77,7 @@ const Dashboard = ({ onLogout }) => {
   const handleSaveEdit = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found. Please log in.');
-      }
+      if (!token) throw new Error('No token found. Please log in.');
 
       await axios.put(
         `https://task-manager-backend-hazel-three.vercel.app/api/tasks/${editingTask._id}`,
@@ -93,16 +85,12 @@ const Dashboard = ({ onLogout }) => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      const updatedTasks = tasks.map((task) =>
-        task._id === editingTask._id
-          ? { ...task, title: editTitle, description: editDescription }
-          : task
-      );
-      setTasks(updatedTasks);
-
+      setTasks(tasks.map(task => 
+        task._id === editingTask._id ? 
+        { ...task, title: editTitle, description: editDescription } : 
+        task
+      ));
       setEditingTask(null);
-      setEditTitle('');
-      setEditDescription('');
     } catch (err) {
       console.error('Failed to update task:', err);
       setError(err.response?.data?.error || err.message);
@@ -112,16 +100,12 @@ const Dashboard = ({ onLogout }) => {
   const handleDelete = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found. Please log in.');
-      }
+      if (!token) throw new Error('No token found. Please log in.');
 
       await axios.delete(`https://task-manager-backend-hazel-three.vercel.app/api/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      const updatedTasks = tasks.filter((task) => task._id !== taskId);
-      setTasks(updatedTasks);
+      setTasks(tasks.filter(task => task._id !== taskId));
     } catch (err) {
       console.error('Failed to delete task:', err);
       setError(err.response?.data?.error || err.message);
@@ -131,16 +115,13 @@ const Dashboard = ({ onLogout }) => {
   const handleAddTask = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found. Please log in.');
-      }
+      if (!token) throw new Error('No token found. Please log in.');
 
       const res = await axios.post(
         'https://task-manager-backend-hazel-three.vercel.app/api/tasks',
         { title: newTaskTitle, description: newTaskDescription },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
       setTasks([...tasks, res.data]);
       setIsAddTaskModalOpen(false);
       setNewTaskTitle('');
@@ -151,13 +132,8 @@ const Dashboard = ({ onLogout }) => {
     }
   };
 
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
-
-  if (error) {
-    return <div className="error">Error: {error}</div>;
-  }
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <div className="dashboard-container">
@@ -170,44 +146,46 @@ const Dashboard = ({ onLogout }) => {
 
       <h1 className="dashboard-title">Dashboard</h1>
       
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="tasks" direction="horizontal">
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="task-list"
-            >
-              {tasks.map((task, index) => (
-                <Draggable key={task._id} draggableId={task._id} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      className="task-card"
-                    >
-                      <div className="task-content">
-                        <h3 className="task-title">{task.title}</h3>
-                        <p className="task-description">{task.description}</p>
+      <div className="scrollable-task-container">
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="tasks">
+            {(provided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="task-list"
+              >
+                {tasks.map((task, index) => (
+                  <Draggable key={task._id} draggableId={task._id} index={index}>
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className="task-card"
+                      >
+                        <div className="task-content">
+                          <h3 className="task-title">{task.title}</h3>
+                          <p className="task-description">{task.description}</p>
+                        </div>
+                        <div className="task-actions">
+                          <button className="edit" onClick={() => handleEdit(task)}>
+                            Edit
+                          </button>
+                          <button className="delete" onClick={() => handleDelete(task._id)}>
+                            Delete
+                          </button>
+                        </div>
                       </div>
-                      <div className="task-actions">
-                        <button className="edit" onClick={() => handleEdit(task)}>
-                          Edit
-                        </button>
-                        <button className="delete" onClick={() => handleDelete(task._id)}>
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
 
       <button
         className="add-task-button"
