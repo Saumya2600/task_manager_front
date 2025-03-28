@@ -128,14 +128,35 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-.task-content {
-  flex-grow: 1;
+/* NEW: Task Header with Timestamp */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 0.5rem;
 }
 
 .task-title {
   font-size: 1.25rem;
   font-weight: bold;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* NEW: Timestamp Styling */
+.task-date {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.task-content {
+  flex-grow: 1;
 }
 
 .task-description {
@@ -318,6 +339,17 @@ body {
   .task-card {
     padding: 1.2rem;
     min-height: 160px;
+  }
+
+  /* NEW: Mobile timestamp adjustments */
+  .task-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-date {
+    margin-top: 0.25rem;
+    align-self: flex-start;
   }
   
   .add-task-button {
