@@ -17,6 +17,12 @@ const Dashboard = ({ onLogout }) => {
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
+  // Format date for display
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   useEffect(() => {
     fetchUserDetails();
     fetchTasks();
@@ -119,7 +125,11 @@ const Dashboard = ({ onLogout }) => {
 
       const res = await axios.post(
         'https://task-manager-backend-hazel-three.vercel.app/api/tasks',
-        { title: newTaskTitle, description: newTaskDescription },
+        { 
+          title: newTaskTitle, 
+          description: newTaskDescription,
+          createdAt: new Date().toISOString() // Add timestamp when creating task
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setTasks([...tasks, res.data]);
@@ -165,7 +175,12 @@ const Dashboard = ({ onLogout }) => {
                         className="task-card"
                       >
                         <div className="task-content">
-                          <h3 className="task-title">{task.title}</h3>
+                          <div className="task-header">
+                            <h3 className="task-title">{task.title}</h3>
+                            <span className="task-date">
+                              {formatDate(task.createdAt || new Date().toISOString())}
+                            </span>
+                          </div>
                           <p className="task-description">{task.description}</p>
                         </div>
                         <div className="task-actions">
