@@ -38,7 +38,7 @@ body {
   font-size: 2rem;
   font-weight: bold;
   margin: 0;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background: linear-gradient(to right, #250a42, #232a38);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -70,6 +70,7 @@ body {
 
 .input-group {
   margin-bottom: 1.2rem;
+  margin-right: 28px;
 }
 
 .login-input {

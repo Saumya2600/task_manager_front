@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import logo from './task_manager_icon.png'; // Make sure to import your logo
+import logo from '../pages/task_manager_icon.png' // Make sure to import your logo
 
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
